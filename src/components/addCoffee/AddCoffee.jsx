@@ -1,4 +1,6 @@
 import React from 'react';
+import Swal from 'sweetalert2'
+
 
 const AddCoffee = () => {
 
@@ -23,7 +25,17 @@ const AddCoffee = () => {
             body: JSON.stringify(coffee)
         })
         .then(res => res.json())
-        .then(data => console.log(data))
+        .then(data => {
+            console.log(data)
+          if(data.acknowledged){
+            Swal.fire({
+                title: 'Added Success!',
+                text: 'Coffee added Success fully',
+                icon: 'success',
+                confirmButtonText: 'Done'
+              })
+          }
+        })
     }
 
     return (
