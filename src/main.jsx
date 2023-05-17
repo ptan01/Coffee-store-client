@@ -7,6 +7,9 @@ import MainLeyOut from './leyout/MainLeyOut'
 import Home from './components/home/Home'
 import AddCoffee from './components/addCoffee/AddCoffee'
 import UpdateCoffee from './components/updateCoffee/UpdateCoffee'
+import AuthProvider from './providers/AuthProvider'
+import Login from './components/login/Login'
+import Register from './components/login/Register'
 
 
 const router = createBrowserRouter([
@@ -26,11 +29,21 @@ const router = createBrowserRouter([
         path: '/update-coffee/:id',
         element: <UpdateCoffee></UpdateCoffee>,
         loader: ({params}) => fetch(`http://localhost:5000/coffee/${params.id}`)
+      },
+      {
+        path: 'login',
+        element: <Login></Login>
+      },
+      {
+        path: 'register',
+        element: <Register></Register>
       }
     ]
   }
 ])
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <RouterProvider router={router}></RouterProvider>
+  <AuthProvider>
+    <RouterProvider router={router}></RouterProvider>
+  </AuthProvider>
 )
