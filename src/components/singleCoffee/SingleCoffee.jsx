@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
+import './singleCoffee.css';
 
 const SingleCoffee = ({ coffee, setDepend ,depend}) => {
 
@@ -39,7 +40,7 @@ const SingleCoffee = ({ coffee, setDepend ,depend}) => {
     }
 
     return (
-        <div key={coffee._id} className="card card-side bg-base-100 shadow-xl">
+        <div key={coffee._id} className="card card-side shadow-xl">
             <figure><img className='w-[200px] h-[200px]' src={coffee.photo} alt="Movie" /></figure>
             <div className="flex w-full justify-between items-center">
                 <div>
@@ -50,7 +51,7 @@ const SingleCoffee = ({ coffee, setDepend ,depend}) => {
                 </div>
                 <div className="card-actions justify-end">
                     <div className="btn-group btn-group-vertical space-y-3">
-                        <button className="btn">View</button>
+                        <Link to={`coffee-details/${coffee._id}`}><button className="btn">View</button></Link>
                         <Link to={`update-coffee/${coffee._id}`}><button className="btn">Edit</button></Link>
                         <button onClick={() => handleDelete(coffee._id)} className="btn">Delete</button>
                     </div>

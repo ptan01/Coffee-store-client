@@ -10,6 +10,8 @@ import UpdateCoffee from './components/updateCoffee/UpdateCoffee'
 import AuthProvider from './providers/AuthProvider'
 import Login from './components/login/Login'
 import Register from './components/login/Register'
+import CoffeeDetails from './components/coffeeDetails/CoffeeDetails'
+import Order from './components/Order/Order'
 
 
 const router = createBrowserRouter([
@@ -37,6 +39,15 @@ const router = createBrowserRouter([
       {
         path: 'register',
         element: <Register></Register>
+      },
+      {
+        path: 'coffee-details/:id',
+        element: <CoffeeDetails></CoffeeDetails>,
+        loader: ({params}) => fetch(`http://localhost:5000/coffee/${params.id}`)
+      },
+      {
+        path: 'order',
+        element: <Order></Order>
       }
     ]
   }
