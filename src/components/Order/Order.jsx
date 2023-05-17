@@ -1,6 +1,25 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import { AuthContext } from '../../providers/AuthProvider';
 
 const Order = () => {
+
+    const { user } = useContext(AuthContext)
+
+    const [orders, setOrders] = useState([])
+
+
+    useEffect(() => {
+        fetch(`http://localhost:5000/order?email=${user?.email}`)
+            .then(res => res.json())
+            .then(data => {
+                console.log(data)
+                setOrders(data)
+            })
+    }, [user])
+
+
+
+
     return (
         <div className='container mx-auto'>
             <div className="overflow-x-auto">
@@ -10,32 +29,20 @@ const Order = () => {
                         <tr>
                             <th></th>
                             <th>Name</th>
-                            <th>Job</th>
-                            <th>Favorite Color</th>
+                            <th>Chef</th>
+                            <th>Email</th>
                         </tr>
                     </thead>
                     <tbody>
                         {/* row 1 */}
-                        <tr>
-                            <th>1</th>
-                            <td>Cy Ganderton</td>
-                            <td>Quality Control Specialist</td>
-                            <td>Blue</td>
-                        </tr>
-                        {/* row 2 */}
-                        <tr>
-                            <th>2</th>
-                            <td>Hart Hagerty</td>
-                            <td>Desktop Support Technician</td>
-                            <td>Purple</td>
-                        </tr>
-                        {/* row 3 */}
-                        <tr>
-                            <th>3</th>
-                            <td>Brice Swyre</td>
-                            <td>Tax Accountant</td>
-                            <td>Red</td>
-                        </tr>
+                        {
+                            orders.map((order, idx) => <tr key={idx}>
+                                <th>{idx}</th>
+                                <td>{order.name}</td>
+                                <td>{order.chef}</td>
+                                <td>{order.email}</td>
+                            </tr>)
+                        }
                     </tbody>
                 </table>
             </div>
